@@ -1,7 +1,20 @@
 * {
 	box-sizing: border-box;
 }
-.jumbotron, .panel-body{
+
+h3 {
+	font-size: 36px;
+}
+
+.panel-title {
+	font-size: 28px;
+}
+
+.jumbotron {
+	background-color: lightpink;
+} 
+
+.panel-body{
 	background-color: lightblue;
 }
 
