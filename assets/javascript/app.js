@@ -1,11 +1,11 @@
 $( document ).ready(function() {
-    console.log( "ready!" );
+    console.log( "go!" );
 
-//the questions object is in question.js
-//initialize some global variables that will be needed
+//the questions are in an object in the questions.js file
+//global variable initialization:
 
-var totalCorrect = 0;
-var totalWrong = 0;
+var numberCorrect = 0;
+var numberWrong = 0;
 var unanswered = 0;
 
 var questionNum = -1;
@@ -28,8 +28,8 @@ function showTime(){
 //this is the 'new game' button and starts a new game by resetting the necessary variables.
 $(".newGame").click(function(){
 	if(questionNum == -1){
-		totalCorrect = 0;
-		totalWrong = 0;
+		numberCorrect = 0;
+		numberWrong = 0;
 		unanswered = 0;
 		nextQuestion();
 	}
@@ -41,7 +41,7 @@ function nextQuestion(){
 	questionNum++;
 	startNextQuestion(questionNum);
 	}else{	
-	$("#question").text("You got " +Math.round(totalCorrect/allQuestions.length*100) +"% correct");
+	$("#question").text("You got " +Math.round(numberCorrect/allQuestions.length*100) +"% correct");
 	$(".choices").empty();
 	$("#answer").text("");
 	$("#result").text("");
@@ -56,7 +56,7 @@ function startNextQuestion(q){
 	The countdown starts (displayTime -1) because setInterval(function, 1000) calls the function AFTER a second.*/
 	$("#question").val("");
 	$(".choices").empty();
-	$("#answer").text("Click The Correct Choice");
+	$("#answer").text("Click The Correct Answer");
 	$("#answer").css('color', 'red');
 	$("#answer").css('background','lightblue');
 	$("#result").text("Good Luck!");
@@ -73,19 +73,19 @@ function displayChoices(i){
 	clearTimeout(displayTime);
 	displayTime = setInterval(showTime,1000);
 	$("#question").html("<p>" + allQuestions[i].question + "</p>");
-	$("#answer").text("Click The Correct Choice");
+	$("#answer").text("Click The Correct Answer");
 	$("#answer").css('color', 'red');
 	$("#answer").css('background','lightblue');
 	$("#result").text("Good Luck!");
-	var choiceArray = allQuestions[i].choices
-	answer = choiceArray[allQuestions[i].correctChoice];
+	var choiceArray = allQuestions[i].options
+	answer = choiceArray[allQuestions[i].correctAnswer];
 	for (k=0; k<choiceArray.length; k++){
 		$(".choices").append("<p><span id = q" + k + ">" + choiceArray[k] +  "</span></p>");
 			//this area creates click event for user's choice and also shows the user what the correct choice would have been.
 			$('#q' + k).click(function(){
 				$(this).css('color', 'white');
 				$(this).css('background','red');
-				$("#answer").text("Correct Choice: " + answer);
+				$("#answer").text("Correct Answer: " + answer);
 				$("#answer").css('color', 'white');
 				$("#answer").css('background','blue');
 				if (userChoice == -1){
@@ -96,7 +96,7 @@ function displayChoices(i){
 			//this creates hover on and off color change to respond to mouse over the choices.
 			$('#q' + k).hover(function(){					
 				$(this).css('color', 'white');
-				$(this).css('background','red');
+				$(this).css('background','green');
 					}, function(){
 					$(this).css('color', 'black');
 					$(this).css('background','lightgrey');
@@ -105,19 +105,19 @@ function displayChoices(i){
 };//closes the displayChoices function
 //the endQuestion function checks to see if the user made the correct choice or not (or no choice made due to time out flag -1)
 function endQuestion(){
-	if (userChoice == allQuestions[questionNum].correctChoice){
-					totalCorrect++;
+	if (userChoice == allQuestions[questionNum].correctAnswer){
+					numberCorrect++;
 					$("#result").text("Correct!");
 				}else if (userChoice == -1){
 					unanswered++;
 					$("#result").text("No Choice Made");
 				}else{
-					totalWrong++;
+					numberWrong++;
 					$("#result").text("Wrong!");
 				};
 				$("#time").text(0);
-				$("#right").text(totalCorrect);
-				$("#wrong").text(totalWrong);
+				$("#right").text(numberCorrect);
+				$("#wrong").text(numberWrong);
 				$("#unanswered").text(unanswered);
 				clearInterval(displayTime);
 				displayTime = setTimeout(nextQuestion,3000);//delay before changing questions
