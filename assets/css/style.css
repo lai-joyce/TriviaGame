@@ -25,3 +25,7 @@ h3 {
 .choices{
 	background-color: lightgrey;
 }
+
+#question {
+	font-size: 20px;
+}

@@ -68,7 +68,7 @@ function displayChoices(i){
 	questionNum = i;
 	secondsLeft = displayTime - 1;
 	/*the setInterval is 1000 which means that the first function call 
-	happens AFTER a second elapses so the -1 compensates for that and the user gets a full 30 seconds instead of 31.
+	happens AFTER a second elapses so the -1 compensates for that and the user gets a full 20 seconds instead of 21.
 	and the startNextQuestion displays a 20 in the timer.*/
 	clearTimeout(displayTime);
 	displayTime = setInterval(showTime,1000);
